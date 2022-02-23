@@ -5,6 +5,7 @@ from requests import *
 
 
 def search(update: Update, context: CallbackContext):
+    """The Search function works by getting the input from the context.args and fetches the result as json from the duckduckgo API"""
     try:
         user_input = ' '.join(context.args[0:])
         user_input = user_input.replace(' ', '+')

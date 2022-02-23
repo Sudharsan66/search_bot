@@ -10,8 +10,9 @@ randomPImageUrl = "https://picsum.photos/1200"
 likes = 0
 dislikes = 0
 
-def random_img(update: Update, context: CallbackContext):
 
+def random_img(update: Update, context: CallbackContext):
+    """This Function returns an Random image from PicSum.Photos API"""
     if randomImageText in update.message.text:
         image = get(randomPImageUrl).content
     else:

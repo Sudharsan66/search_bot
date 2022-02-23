@@ -11,6 +11,7 @@ dislikes = 0
 
 
 def image_search(update: Update, context: CallbackContext, max_results=None):
+    """The image_search function works by getting the input from the context.args and fetches the result as images from the duckduckgo API"""
     User_input = ' '.join(context.args[0:])
     User_input = User_input.replace(' ', '+')
     print(User_input)

@@ -16,12 +16,14 @@ allowedUsernames = ["sudharsan5047"]
 
 
 def startCommand(update: Update, context: CallbackContext):
+    """This is where the bot is initiated - /start command"""
     buttons = [[KeyboardButton(randomImageText)]]
     context.bot.send_message(chat_id=update.effective_chat.id, text="Welcome to your custom Search Engine!",
                              reply_markup=ReplyKeyboardMarkup(buttons))
 
 
 def check_permission(update: Update, context: CallbackContext):
+    """The username is validated is there are permissions for accessing the functions or not"""
     try:
         if update.effective_chat.username not in allowedUsernames:
             context.bot.send_message(chat_id=update.effective_chat.id,
