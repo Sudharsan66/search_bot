@@ -4,3 +4,4 @@ telepot==10.3
 urllib3==1.19.1
 youtube-dl==2016.12.18
 telegram~=0.0.1
+pyttsx3
