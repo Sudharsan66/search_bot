@@ -58,7 +58,7 @@ Commands used to invoke functions :
 <ol>
 <li>Start -  <b>/start</b>
 <ul><li>The <b>/start</b> command is used to invoke the start function in the search bot</li></ul></li>
-<li>The <b>/help</b> command is used to display the list of command available in the bot and their explanations</li>
+<li>Help - <b>/help</b> command is used to display the list of command available in the bot and their explanations</li>
 <li>Search - <b>/search</b><ul><li>The <b>/search</b> command is used to invoke the search function in the search bot which also searches for the word/sentence given as an argument.<br><br><b>For Example:</b> /search bike :- gives the result which are fetched from the Duck Duck Go Api service.</li></ul></li>
 <li>Image - <b>/img</b><ul><li>The <b>/img</b> command is used to invoke the search function in the search bot which also searches images for the word/sentence given as an argument.<br><br><b>For Example:</b> /img bike :- gives the bike images which are fetched from the Duck Duck Go service.</li></ul></li>
 <li>RandomImage - <b>/random</b><ul><li>The <b>/random</b> command is used to invoke the function in the search bot which fetches a random image from a API service and displays it in media group.<br><br><b>For Example:</b> /random :- gives the random image fetched from the picsum.photos Api service.</li></ul></li>
