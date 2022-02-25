@@ -16,7 +16,7 @@ def search(update: Update, context: CallbackContext):
             topics = data['RelatedTopics']
             try:
                 for result in topics:
-                    context.bot.send_message(chat_id=update.effective_chat.id, text=f"{result['Result']}",
+                    context.bot.send_message(chat_id=update.effective_chat.id, text=f"{result['Result']}\n\n",
                                              parse_mode=ParseMode.HTML)
             except KeyError as e:
                 print(e)

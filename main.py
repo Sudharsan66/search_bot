@@ -5,20 +5,17 @@ from requests import *
 
 import Search
 import image
+import queryHandler
 import randomImg
 import voice
 
 updater = Updater(token="5067785773:AAHikkvebWKMYrbMmoNNWKiUoRGkUUEzUQ0")
 dispatcher = updater.dispatcher
 
-randomImageText = "Random Image"
-
-allowedUsernames = ["sudharsan5047"]
-
 
 def startCommand(update: Update, context: CallbackContext):
     """This is where the bot is initiated - /start command"""
-    buttons = [[KeyboardButton(randomImageText)]]
+    buttons = [[KeyboardButton('Help')]]
     context.bot.send_message(chat_id=update.effective_chat.id, text="Welcome to the DuckDuckGo search engine and text to speech bot",
                              reply_markup=ReplyKeyboardMarkup(buttons))
 
@@ -36,9 +33,10 @@ def help(update: Update, context: CallbackContext):
 
 
 dispatcher.add_handler(CommandHandler("start", startCommand))
+# dispatcher.add_handler(MessageHandler("Help", help))
 dispatcher.add_handler(CommandHandler("help", help))
 dispatcher.add_handler(CommandHandler("random", randomImg.random_img))
-dispatcher.add_handler(CallbackQueryHandler(randomImg.queryHandler))
+dispatcher.add_handler(CallbackQueryHandler(queryHandler.queryHandler))
 dispatcher.add_handler(CommandHandler('search', Search.search))
 dispatcher.add_handler(CommandHandler('img', image.image_search))
 dispatcher.add_handler(CommandHandler('voice', voice.getVoice))

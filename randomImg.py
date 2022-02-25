@@ -3,17 +3,12 @@ from telegram import *
 from telegram.ext import *
 from requests import *
 
-randomImageText = "Random Image"
-
 randomPImageUrl = "https://picsum.photos/1200"
-
-likes = 0
-dislikes = 0
 
 
 def random_img(update: Update, context: CallbackContext):
     """This Function returns an Random image from PicSum.Photos API"""
-    if randomImageText in update.message.text:
+    if update.message.text:
         image = get(randomPImageUrl).content
     else:
         image = None
@@ -28,19 +23,3 @@ def random_img(update: Update, context: CallbackContext):
                    [InlineKeyboardButton("👎", callback_data="dislike")]]
         context.bot.send_message(chat_id=update.effective_chat.id, reply_markup=InlineKeyboardMarkup(buttons),
                                  text="Did you like the image?")
-
-
-def queryHandler(update: Update, context: CallbackContext):
-    query = update.callback_query.data
-    update.callback_query.answer()
-
-    global likes, dislikes
-
-    if "like" in query:
-        likes += 1
-
-    if "dislike" in query:
-        dislikes += 1
-    context.bot.send_message(chat_id=update.effective_chat.id,
-                             text=f"{update.message.from_user.username} :: {likes} => likes")
-    print(f"likes => {likes} and dislikes => {dislikes}")

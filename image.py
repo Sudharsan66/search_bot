@@ -4,7 +4,6 @@ from telegram import *
 from telegram.ext import *
 import re
 import json
-import time
 
 likes = 0
 dislikes = 0
@@ -14,7 +13,7 @@ def image_search(update: Update, context: CallbackContext, max_results=None):
     """The image_search function works by getting the input from the context.args and fetches the result as images from the duckduckgo API"""
     User_input = ' '.join(context.args[0:])
     User_input = User_input.replace(' ', '+')
-    print(User_input)
+    # print(User_input)
     url = 'https://duckduckgo.com/'
     params = {
         'q': User_input
@@ -49,21 +48,20 @@ def image_search(update: Update, context: CallbackContext, max_results=None):
 
     requestUrl = url + "i.js"
 
-    while True:
-        while True:
-            try:
-                res = requests.get(requestUrl, headers=headers, params=params)
-                data = json.loads(res.text)
-                break
-            except ValueError as e:
-                print(e)
-                time.sleep(5)
-                continue
+    # while True:
+    #     while True:
+    try:
+        res = requests.get(requestUrl, headers=headers, params=params)
+        data = json.loads(res.text)
+        # break
+    except ValueError as e:
+        print(e)
+        # continue
 
-        img_data = data["results"]
-        for obj in img_data:
-            i = 1
-            if i < 6:
+    img_data = data["results"]
+    for index, obj in enumerate(img_data):
+        if index < 5:
+            if obj['image']:
                 context.bot.send_message(chat_id=update.effective_chat.id,
                                          text=f"<a href='{obj['image']}'>.</a>\n\n",
                                          parse_mode=ParseMode.HTML)
@@ -71,27 +69,14 @@ def image_search(update: Update, context: CallbackContext, max_results=None):
                            [InlineKeyboardButton("👎", callback_data="dislike")]]
                 context.bot.send_message(chat_id=update.effective_chat.id, reply_markup=InlineKeyboardMarkup(buttons),
                                          text="Did you like the image?")
-                i =+ 1
-                break
+            else:
+                context.bot.send_message(chat_id=update.effective_chat.id,
+                                         text="Image Not Found!!!!",
+                                         parse_mode=ParseMode.HTML)
+        elif index > 5:
+            break
+    if "next" not in data:
+        exit(0)
 
-        if "next" not in data:
+    requestUrl = url + data["next"]
 
-            exit(0)
-
-        requestUrl = url + data["next"]
-
-
-def queryHandler(update: Update, context: CallbackContext):
-    query = update.callback_query.data
-    update.callback_query.answer()
-
-    global likes, dislikes
-
-    if "like" in query:
-        likes += 1
-
-    if "dislike" in query:
-        dislikes += 1
-    context.bot.send_message(chat_id=update.effective_chat.id,
-                             text=f"{update.message.from_user.username} :: {likes} => likes")
-    print(f"likes => {likes} and dislikes => {dislikes}")
