@@ -17,7 +17,7 @@ def getVoice(update: Update, context: CallbackContext):
                                  parse_mode=ParseMode.HTML)
         generateVoice(user_input)
         context.bot.send_audio(chat_id=update.effective_chat.id,
-                               audio=open("saved_file.mp3", "rb"))
+                               audio=open("saved_audio.mp3", "rb"))
     else:
         answer = f"Hello {update.message.from_user.username} I am a chat bot coded with python."
         context.bot.send_message(chat_id=update.effective_chat.id,
@@ -27,8 +27,8 @@ def getVoice(update: Update, context: CallbackContext):
 
 def generateVoice(user_input):
     engine = pyttsx3.init()
-    tts = gTTS(text=user_input, lang='en',slow=False)
-    tts.save("saved_file.mp3")
+    tts = gTTS(text=user_input, lang='en', slow=False)
+    tts.save("saved_audio.mp3")
     print("File saved!")
     engine.setProperty('rate', 200)
     # engine.say("I will speak this text")
